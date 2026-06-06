@@ -1,0 +1,18 @@
+# IDE files and settings
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Flutter/Dart build files
+.dart_tool/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+pubspec.lock
+
+# Crashlytics/firebase generated files
+ios/Flutter/flutter_export_environment.sh
+android/key.properties

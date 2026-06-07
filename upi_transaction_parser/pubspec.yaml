@@ -1,14 +1,12 @@
 name: upi_transaction_parser
-description: A starting point for Dart libraries or applications.
-version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+description: A Dart package for parsing UPI transaction SMS messages into structured transaction objects.
+version: 0.0.1
 
 environment:
-  sdk: ^3.12.1
+  sdk: '>=3.12.1 <4.0.0'
 
-# Add regular dependencies here.
 dependencies:
-  # path: ^1.9.0
+  # This is a pure Dart utility package. No external dependencies are required.
 
 dev_dependencies:
   lints: ^6.0.0

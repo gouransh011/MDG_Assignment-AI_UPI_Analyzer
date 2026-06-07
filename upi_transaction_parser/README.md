@@ -1,39 +1,260 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# UPI Transaction Parser
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+A lightweight Dart package for parsing UPI transaction SMS messages into structured transaction objects.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/tools/pub/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+The package extracts transaction amount, merchant information, transaction type (income/expense), and spending category from raw UPI SMS messages using pattern matching and keyword detection.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Perfect for expense trackers, personal finance applications, transaction analyzers, and financial dashboards.
+
+---
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+Transaction amount extraction
 
-## Getting started
+Income / Expense detection
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+Merchant identification
+
+Automatic spending categorization
+
+UPI ID fallback detection
+
+JSON serialization support
+
+Pure Dart implementation
+
+---
+
+## Getting Started
+
+### 1. Add the dependency
+
+```yaml
+dependencies:
+  upi_transaction_parser: ^0.0.1
+```
+
+### 2. Install dependencies
+
+```bash
+flutter pub get
+```
+
+---
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+### Import the package
 
 ```dart
-const like = 'sample';
+import 'package:upi_transaction_parser/upi_transaction_parser.dart';
 ```
 
-## Additional information
+### Parse a transaction message
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+final transaction = UpiParser.parse(
+  'Paid Rs. 250 to Swiggy via UPI',
+  DateTime.now(),
+);
+
+print(transaction);
+```
+
+### Output
+
+```text
+UpiTransaction(
+  amount: 250.0,
+  merchant: Swiggy,
+  type: expense,
+  category: Food & Dining
+)
+```
+
+---
+
+## Expense Transaction Example
+
+```dart
+final transaction = UpiParser.parse(
+  'Paid Rs. 499 to Amazon via UPI',
+  DateTime.now(),
+);
+
+print(transaction?.merchant);
+print(transaction?.category);
+```
+
+Output:
+
+```text
+Amazon
+Shopping
+```
+
+---
+
+## Income Transaction Example
+
+```dart
+final transaction = UpiParser.parse(
+  'Received Rs. 5000 from Rahul',
+  DateTime.now(),
+);
+
+print(transaction?.type);
+print(transaction?.category);
+```
+
+Output:
+
+```text
+TransactionType.income
+Income
+```
+
+---
+
+## Check if a Message Contains a Transaction
+
+```dart
+final isTransaction = UpiParser.isTransactionMessage(
+  'Paid Rs. 250 to Swiggy via UPI',
+);
+
+print(isTransaction);
+```
+
+Output:
+
+```text
+true
+```
+
+---
+
+## Supported Message Formats
+
+The parser supports common UPI and banking transaction formats such as:
+
+```text
+Paid Rs. 250 to Swiggy via UPI
+
+Received Rs. 500 from Rahul
+
+INR 1,200 debited from account
+
+₹999 transferred to Amazon
+
+Rs. 350 credited to your account
+
+Sent Rs. 150 to abc@ybl
+```
+
+---
+
+## Transaction Model
+
+The parser returns a structured `UpiTransaction` object.
+
+```dart
+class UpiTransaction {
+  final double amount;
+  final String merchant;
+  final TransactionType type;
+  final DateTime date;
+  final String category;
+  final String rawMessage;
+}
+```
+
+---
+
+## Transaction Type
+
+```dart
+enum TransactionType {
+  income,
+  expense,
+}
+```
+
+---
+
+## JSON Serialization
+
+### Convert transaction to JSON
+
+```dart
+final json = transaction.toJson();
+```
+
+Example Output:
+
+```json
+{
+  "amount": 250.0,
+  "merchant": "Swiggy",
+  "type": "expense",
+  "date": "2025-06-06T12:00:00.000",
+  "category": "Food & Dining",
+  "rawMessage": "Paid Rs. 250 to Swiggy via UPI"
+}
+```
+
+### Restore transaction from JSON
+
+```dart
+final transaction =
+    UpiTransaction.fromJson(json);
+```
+
+---
+
+## Components
+
+### UpiParser
+
+Main parser engine responsible for:
+
+* Amount extraction
+* Merchant extraction
+* Transaction type detection
+* Category detection
+
+### UpiTransaction
+
+Structured model representing a parsed transaction.
+
+### TransactionType
+
+Enum representing transaction type.
+
+```dart
+TransactionType.income
+TransactionType.expense
+```
+
+---
+
+## Package Structure
+
+```text
+lib/
+├── upi_transaction_parser.dart
+└── src/
+    ├── parser_engine.dart
+    ├── transaction_model.dart
+    └── transaction_type.dart
+```
+
+---
+
+
+## License
+
+MIT License
+
+

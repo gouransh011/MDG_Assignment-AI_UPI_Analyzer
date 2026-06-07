@@ -115,23 +115,6 @@ TransactionType.income
 Income
 ```
 
----
-
-## Check if a Message Contains a Transaction
-
-```dart
-final isTransaction = UpiParser.isTransactionMessage(
-  'Paid Rs. 250 to Swiggy via UPI',
-);
-
-print(isTransaction);
-```
-
-Output:
-
-```text
-true
-```
 
 ---
 

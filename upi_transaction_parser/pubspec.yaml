@@ -1,7 +1,7 @@
 name: upi_transaction_parser
 description: A Dart package for parsing UPI transaction SMS messages into structured transaction objects.
 version: 0.0.1
-
+repository: https://github.com/gouransh011/MDG_Assignment-AI_UPI_Analyzer/tree/main/upi_transaction_parser
 environment:
   sdk: '>=3.12.1 <4.0.0'
 

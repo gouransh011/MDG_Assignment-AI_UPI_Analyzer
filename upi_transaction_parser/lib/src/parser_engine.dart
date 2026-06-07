@@ -3,7 +3,8 @@ import 'transaction_type.dart';
 
 class UpiParser {
   static final RegExp _amountRegex = RegExp(
-    r'(?:Rs\.?|INR|₹)\s*([\d,]+(?:\.\d{1,2})?)', caseSensitive: false,
+    '(?:Rs\\.?|INR|\\u20B9)\\s*([\\d,]+(?:\\.\\d{1,2})?)',
+    caseSensitive: false,
   );
 
   static final List<String> _debitKeywords = [

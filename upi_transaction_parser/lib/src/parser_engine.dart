@@ -109,6 +109,7 @@ class UpiParser {
     final stopWords = [
       RegExp(r'\bref\b.*', caseSensitive: false),
       RegExp(r'\btxn\b.*', caseSensitive: false),
+      RegExp(r'\bvia\s+upi\b.*', caseSensitive: false),
       RegExp(r'\bupi\b.*', caseSensitive: false),
       RegExp(r'\bfor\b.*', caseSensitive: false),
       RegExp(r'\bon\b.*', caseSensitive: false),

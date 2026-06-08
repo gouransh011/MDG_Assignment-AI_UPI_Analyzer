@@ -6,6 +6,9 @@ import '../bloc/transaction_state.dart';
 
 import '../widgets/summary_card.dart';
 import 'package:upi_transaction_parser/upi_transaction_parser.dart';
+
+import '../widgets/ai_insight_card.dart';
+import '../utils/insight_generator.dart' ;
 class HomeScreen extends StatelessWidget{
         const HomeScreen({super.key});
 
@@ -35,7 +38,7 @@ class HomeScreen extends StatelessWidget{
 
               categoryTotals[tx.category] = (categoryTotals[tx.category] ?? 0) + tx.amount;
             }
-
+            final insights = InsightGenerator.generateInsights(transactions);
             return SingleChildScrollView(
               padding: const EdgeInsets.all(12.0),
               child: Column(
@@ -117,9 +120,17 @@ class HomeScreen extends StatelessWidget{
                       );
                     },
                   ),
+                  const SizedBox(height: 20),
+                  AiInsightCard(
+                    insights: insights,
+                  ),
+
+                  const SizedBox(height: 20),
                 ],
               ),
+
             );
+            
           }
 
           if (state is TransactionError) {

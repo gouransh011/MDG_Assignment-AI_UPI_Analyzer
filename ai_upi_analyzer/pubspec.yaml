@@ -40,9 +40,9 @@ dependencies:
 
   upi_transaction_parser:
    path: ../upi_transaction_parser
-
-  permission_handler: ^12.0.0
   
+  permission_handler: ^12.0.0
+  fl_chart: ^1.1.0
 
 dev_dependencies:
   flutter_test:

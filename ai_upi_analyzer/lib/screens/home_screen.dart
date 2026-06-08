@@ -9,6 +9,8 @@ import 'package:upi_transaction_parser/upi_transaction_parser.dart';
 
 import '../widgets/ai_insight_card.dart';
 import '../utils/insight_generator.dart' ;
+
+import '../widgets/expense_pie_chart.dart';
 class HomeScreen extends StatelessWidget{
         const HomeScreen({super.key});
 
@@ -28,6 +30,7 @@ class HomeScreen extends StatelessWidget{
             double expense = 0;
             
             final Map<String, double> categoryTotals = {};
+            final Map<String, double> expenseCategoryTotals = {};
 
             for (final tx in transactions) {
               if (tx.type == TransactionType.income) {
@@ -37,6 +40,13 @@ class HomeScreen extends StatelessWidget{
               }
 
               categoryTotals[tx.category] = (categoryTotals[tx.category] ?? 0) + tx.amount;
+              if (tx.type == TransactionType.expense) {
+
+                expenseCategoryTotals[tx.category] =
+                    (expenseCategoryTotals[tx.category] ?? 0)
+                    + tx.amount;
+              }
+            
             }
             final insights = InsightGenerator.generateInsights(transactions);
             return SingleChildScrollView(
@@ -123,6 +133,13 @@ class HomeScreen extends StatelessWidget{
                   const SizedBox(height: 20),
                   AiInsightCard(
                     insights: insights,
+                  ),
+
+                  const SizedBox(height: 20),
+                  const SizedBox(height: 20),
+
+                  ExpensePieChart(
+                    categoryTotals: expenseCategoryTotals,
                   ),
 
                   const SizedBox(height: 20),

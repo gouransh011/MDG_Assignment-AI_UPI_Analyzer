@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/transaction_bloc.dart';
 import '../bloc/transaction_state.dart';
+import '../bloc/transaction_event.dart';
 
 import '../widgets/summary_card.dart';
 import 'package:upi_transaction_parser/upi_transaction_parser.dart';
@@ -17,7 +18,21 @@ class HomeScreen extends StatelessWidget{
         @override
         Widget build(BuildContext context) {
           return Scaffold(
-            appBar: AppBar(title: const Text('AI UPI Analyzer'),backgroundColor: Colors.blueAccent),
+            appBar: AppBar(
+              title: const Text('AI UPI Analyzer'),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.refresh),
+                  onPressed: () {
+
+                    context.read<TransactionBloc>().add(
+                      LoadTransactions(),
+                    );
+
+                  },
+                ),
+              ],
+            ),
             body: BlocBuilder<TransactionBloc, TransactionState>(
               builder: (context, state) {
                 if (state is TransactionLoading) {

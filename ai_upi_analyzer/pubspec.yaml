@@ -35,6 +35,15 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
 
+  flutter_bloc: ^9.1.1
+  equatable: ^2.0.8
+
+  upi_transaction_parser:
+   path: ../upi_transaction_parser
+
+  permission_handler: ^12.0.0
+  
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
